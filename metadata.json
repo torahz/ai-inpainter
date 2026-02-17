@@ -1,0 +1,5 @@
+{
+  "name": "AI Restaurant Inpainter",
+  "description": "A sophisticated AI-powered tool designed for precise image inpainting and object insertion, specifically tailored for adding realistic figures and elements into existing scenes while preserving architectural integrity.",
+  "requestFramePermissions": []
+}
