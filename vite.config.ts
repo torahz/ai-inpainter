@@ -1,11 +1,15 @@
 
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
-  // IMPORTANTE: Se o seu repositório no GitHub se chama "meu-projeto", 
-  // a base deve ser '/meu-projeto/'. Se for o repositório principal (username.github.io), use '/'.
-  base: './', 
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+  return {
+    plugins: [react()],
+    base: './',
+    define: {
+      'process.env.API_KEY': JSON.stringify(env.VITE_API_KEY)
+    }
+  }
 })
