@@ -1,5 +1,6 @@
+
 {
-  "name": "AI Restaurant Inpainter",
+  "name": "A Priori - Scene Inpainter",
   "description": "A sophisticated AI-powered tool designed for precise image inpainting and object insertion, specifically tailored for adding realistic figures and elements into existing scenes while preserving architectural integrity.",
   "requestFramePermissions": []
 }

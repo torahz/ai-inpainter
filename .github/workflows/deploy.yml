@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["main"] # Altere para 'master' se sua branch principal tiver esse nome
+    branches: ["main"]
 
 permissions:
   contents: read
@@ -21,7 +21,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          # Removido 'cache: npm' para evitar erro quando o package-lock.json não existe
           
       - name: Install dependencies
         run: npm install
@@ -29,7 +29,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          # Se você precisar de variáveis de ambiente no build, adicione aqui
+          # O Vite precisa que variáveis de ambiente comecem com VITE_ para serem lidas no cliente
           VITE_API_KEY: ${{ secrets.API_KEY }} 
         
       - name: Setup Pages

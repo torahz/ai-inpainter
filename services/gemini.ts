@@ -1,14 +1,17 @@
 
 import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 
+// Use recommended model names as per guidelines
 const MODEL_TEXT = 'gemini-3-flash-preview';
 const MODEL_IMAGE = 'gemini-2.5-flash-image';
 
-export async function getPromptSuggestion(base64Image: string): Promise<string> {
-  const apiKey = process.env.API_KEY;
-  if (!apiKey) throw new Error("API Key is missing.");
+// Guidelines require obtaining API key exclusively from process.env.API_KEY.
+// We remove the helper function and direct access import.meta.env to resolve TS errors
+// and strictly adhere to the SDK initialization rules.
 
-  const ai = new GoogleGenAI({ apiKey });
+export async function getPromptSuggestion(base64Image: string): Promise<string> {
+  // Always use a new instance with the required process.env.API_KEY
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const cleanBase64 = base64Image.replace(/^data:image\/\w+;base64,/, "");
 
   const response = await ai.models.generateContent({
@@ -40,14 +43,12 @@ export async function getPromptSuggestion(base64Image: string): Promise<string> 
     },
   });
 
+  // Extract text using the .text property as per guidelines
   return response.text || "Failed to generate suggestion.";
 }
 
 export async function analyzeResultForErrors(originalBase64: string, resultBase64: string): Promise<string> {
-  const apiKey = process.env.API_KEY;
-  if (!apiKey) throw new Error("API Key is missing.");
-
-  const ai = new GoogleGenAI({ apiKey });
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const cleanResult = resultBase64.replace(/^data:image\/\w+;base64,/, "");
 
   const response = await ai.models.generateContent({
@@ -78,6 +79,7 @@ export async function analyzeResultForErrors(originalBase64: string, resultBase6
     },
   });
 
+  // Extract text using the .text property
   return response.text || "No specific errors found. Try refining the prompt manually.";
 }
 
@@ -85,10 +87,7 @@ export async function processInpainting(
   base64Image: string,
   prompt: string
 ): Promise<string> {
-  const apiKey = process.env.API_KEY;
-  if (!apiKey) throw new Error("API Key is missing.");
-
-  const ai = new GoogleGenAI({ apiKey });
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const cleanBase64 = base64Image.replace(/^data:image\/\w+;base64,/, "");
 
   try {
@@ -110,6 +109,7 @@ export async function processInpainting(
     });
 
     let resultUrl = "";
+    // Iterate through candidates and parts to find the image, as per guidelines
     if (response.candidates?.[0]?.content?.parts) {
       for (const part of response.candidates[0].content.parts) {
         if (part.inlineData) {

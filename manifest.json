@@ -1,0 +1,23 @@
+
+{
+  "name": "A Priori - Scene Inpainter",
+  "short_name": "A Priori",
+  "description": "AI-powered tool for precise image inpainting and object insertion.",
+  "start_url": "https://torahz.github.io/ai-inpainter/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#4f46e5",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
